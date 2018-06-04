@@ -27,10 +27,10 @@ before_install:
 script:
   - "mvn -DskipTests=true clean install --batch-mode"
   - "mvn -Djava.awt.headless=true -Dmaven.test.redirectTestOutputToFile=true -Dcobertura.report.format=xml --fail-at-end --batch-mode cobertura:cobertura test"
-  - "sh /http2/target/jmeter-test/testJMeter.sh 4.0 http2/target/jmeter-test"
-  - "sh /http2/target/jmeter-test/testJMeter.sh 3.3 http2/target/jmeter-test"
-  - "sh /http2/target/jmeter-test/testJMeter.sh http2/target/jmeter-test"
-  - "sh /http2/target/jmeter-test/testJMeter.sh http2/target/jmeter-test"
+  - "sh ./http2/target/jmeter-test/testJMeter.sh 4.0 http2/target/jmeter-test"
+  - "sh ./http2/target/jmeter-test/testJMeter.sh 3.3 http2/target/jmeter-test"
+  - "sh ./http2/target/jmeter-test/testJMeter.sh http2/target/jmeter-test"
+  - "sh ./http2/target/jmeter-test/testJMeter.sh http2/target/jmeter-test"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
