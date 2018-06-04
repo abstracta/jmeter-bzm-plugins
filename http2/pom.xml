@@ -133,21 +133,77 @@
             <goals>
               <goal>copy</goal>
             </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.mortbay.jetty.alpn</groupId>
+                  <artifactId>alpn-boot</artifactId>
+                  <version>${alpn-boot.version}</version>
+                  <type>jar</type>
+                  <overWrite>false</overWrite>
+                </artifactItem>
+              </artifactItems>
+              <outputDirectory>${project.build.directory}/test-lib</outputDirectory>
+              <stripVersion>true</stripVersion>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-alpn-dependencies-jmeter</id>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.mortbay.jetty.alpn</groupId>
+                  <artifactId>alpn-boot</artifactId>
+                  <version>${alpn-boot.version}</version>
+                  <type>jar</type>
+                  <overWrite>false</overWrite>
+                </artifactItem>
+              </artifactItems>
+              <outputDirectory>${project.build.directory}/jmeter-test/lib</outputDirectory>
+              <stripVersion>true</stripVersion>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-jmeter-dependencies</id>
+            <phase>install</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/jmeter-test/lib</outputDirectory>
+              <stripVersion>true</stripVersion>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-plugin-to-jmeter-dependencies</id>
+            <phase>install</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>${project.artifactId}</artifactId>
+                  <version>${project.version}</version>
+                  <type>${project.packaging}</type>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>${project.artifactId}</artifactId>
+                  <version>${project.version}</version>
+                  <type>test-jar</type>
+                  <classifier>tests</classifier>
+                </artifactItem>
+              </artifactItems>
+              <outputDirectory>${project.build.directory}/jmeter-test/lib</outputDirectory>
+              <stripVersion>true</stripVersion>
+            </configuration>
           </execution>
         </executions>
-        <configuration>
-          <artifactItems>
-            <artifactItem>
-              <groupId>org.mortbay.jetty.alpn</groupId>
-              <artifactId>alpn-boot</artifactId>
-              <version>${alpn-boot.version}</version>
-              <type>jar</type>
-              <overWrite>false</overWrite>
-            </artifactItem>
-          </artifactItems>
-          <outputDirectory>${project.build.directory}/test-lib</outputDirectory>
-          <stripVersion>true</stripVersion>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

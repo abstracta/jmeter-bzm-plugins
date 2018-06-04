@@ -1,0 +1,1 @@
+sed -i "s/java \$JVM_ARGS/java -Xbootclasspath\/p:$APLN_JAR \$JVM_ARGS /" jmeter.sh

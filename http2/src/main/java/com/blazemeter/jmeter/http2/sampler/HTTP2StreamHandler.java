@@ -232,9 +232,6 @@ public class HTTP2StreamHandler extends Stream.Listener.Adapter {
 
         if (result.isSecondaryRequest()) {
           HTTP2SampleResult parent = (HTTP2SampleResult) result.getParent();
-                        /*TODO  Review this, If the subResult have a reference to the parent then when 
-                        the parent is serialized throw an exception. The JMeter's HTTP Sampler dont set 
-                        the parent null, research why?*/
           //result.setParent(null);
           // set primary request failed if at least one secondary
           // request fail
