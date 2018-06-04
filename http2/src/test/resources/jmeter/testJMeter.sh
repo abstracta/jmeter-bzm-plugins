@@ -3,7 +3,7 @@ set -e
 
 JMETER_VERSION=$1
 JMETER_PATH=${project.basedir}/.jmeter/$JMETER_VERSION
-JMETER_TEST_PATH=./http2/target/jmeter-test/
+JMETER_TEST_PATH=./http2/target/jmeter-test
 
 APLN_JAR=$(ls $JMETER_TEST_PATH/lib/ | grep alpn-boot)
 JARS=$(ls $JMETER_TEST_PATH/lib/ | grep -v alpn-boot)
