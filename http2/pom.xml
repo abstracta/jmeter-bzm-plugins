@@ -191,13 +191,6 @@
                   <version>${project.version}</version>
                   <type>${project.packaging}</type>
                 </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>${project.artifactId}</artifactId>
-                  <version>${project.version}</version>
-                  <type>test-jar</type>
-                  <classifier>tests</classifier>
-                </artifactItem>
               </artifactItems>
               <outputDirectory>${project.build.directory}/jmeter-test/lib</outputDirectory>
               <stripVersion>true</stripVersion>
