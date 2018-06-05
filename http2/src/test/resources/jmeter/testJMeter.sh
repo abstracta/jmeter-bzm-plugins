@@ -15,6 +15,7 @@ chmod +x mod-script.sh
 bzt -o modules.jmeter.path=$JMETER_PATH -o modules.jmeter.version=$JMETER_VERSION testJMeter.yaml || ERROR=$?
 cd $JMETER_PATH/lib/ext/
 rm $JARS
+java -version
 cat $JMETER_PATH/bin/jmeter.sh
 exit $ERROR
 
