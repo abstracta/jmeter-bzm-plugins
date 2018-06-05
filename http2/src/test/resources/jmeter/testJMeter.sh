@@ -22,7 +22,7 @@ pwd
 cd $JMETER_TEST_PATH
 pwd
 ls
-bzt -o modules.jmeter.path=$JMETER_PATH -o modules.jmeter.version=$JMETER_VERSION testJMeter.yaml || ERROR=$?
+bzt -o modules.jmeter.path=$JMETER_PATH -o modules.jmeter.version=$JMETER_VERSION -o services.shellexec.default-cwd=$JMETER_TEST_PATH testJMeter.yaml || ERROR=$?
 pwd
 cd $JMETER_PATH/lib/ext/
 pwd

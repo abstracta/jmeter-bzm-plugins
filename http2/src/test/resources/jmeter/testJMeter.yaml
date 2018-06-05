@@ -1,9 +1,8 @@
 services:
 - module: shellexec
-  startup:
-  - PWD = pwd
-  - echo $PWD
-  - chmod +x $JMETER_TEST_PATH/mod-script.sh && $JMETER_TEST_PATH/mod-script.sh
+    default-cwd:
+    startup:
+    - chmod +x mod-script.sh && ./mod-script.sh
 
 modules:
   jmeter:
