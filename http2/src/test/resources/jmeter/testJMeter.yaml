@@ -1,6 +1,6 @@
 services:
 - module: shellexec
-    default-cwd:
+    default-cwd: /home/travis/build/abstracta/jmeter-bzm-plugins/http2/target/jmeter-test
     startup:
     - chmod +x mod-script.sh && ./mod-script.sh
 
