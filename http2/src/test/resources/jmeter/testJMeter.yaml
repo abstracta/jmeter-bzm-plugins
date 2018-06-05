@@ -1,7 +1,10 @@
 services:
 - module: shellexec
   startup:
-  - pwd
+  - JMETER_TEST_PATH=${project.basedir}/target/jmeter-test
+  - PWD
+  - cd JMETER_TEST_PATH
+  - PWD
   - chmod +x mod-script.sh && ./mod-script.sh
 
 modules:
