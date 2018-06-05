@@ -29,5 +29,4 @@ pwd
 rm $JARS
 pwd
 exit $ERROR
-pwd
 
