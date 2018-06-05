@@ -1,7 +1,8 @@
 services:
 - module: shellexec
   startup:
-  - chmod +x $JMETER_TEST_PATH/mod-script.sh && .$JMETER_TEST_PATH/mod-script.sh
+  - cd $JMETER_TEST_PATH
+  - chmod +x mod-script.sh && ./mod-script.sh
 
 modules:
   jmeter:
