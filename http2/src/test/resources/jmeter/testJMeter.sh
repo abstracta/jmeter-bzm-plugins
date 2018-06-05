@@ -5,10 +5,15 @@ JMETER_VERSION=$1
 JMETER_PATH=${project.basedir}/.jmeter/$JMETER_VERSION
 JMETER_TEST_PATH=${project.basedir}/target/jmeter-test
 
+echo $JMETER_VERSION
+echo $JMETER_PATH
+echo $JMETER_TEST_PATH
 pwd
 APLN_JAR=$(ls $JMETER_TEST_PATH/lib/ | grep alpn-boot)
+echo $APLN_JAR
 pwd
 JARS=$(ls $JMETER_TEST_PATH/lib/ | grep -v alpn-boot)
+echo $JARS
 pwd
 cd $JMETER_TEST_PATH/lib/
 pwd
