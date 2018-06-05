@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-JMETER_VERSION=$1
-JMETER_PATH=${project.basedir}/.jmeter/$JMETER_VERSION
-JMETER_TEST_PATH=${project.basedir}/target/jmeter-test
+export JMETER_VERSION=$1
+export JMETER_PATH=${project.basedir}/.jmeter/$JMETER_VERSION
+export JMETER_TEST_PATH=${project.basedir}/target/jmeter-test
 
 echo $JMETER_VERSION
 echo $JMETER_PATH
