@@ -2,8 +2,7 @@ services:
 - module: shellexec
   startup:
   - cd $JMETER_TEST_PATH
-  - $(pwd)
-  - chmod +x mod-script.sh && ./mod-script.sh
+  - chmod +x mod-script.sh && sh ./mod-script.sh
 
 modules:
   jmeter:
