@@ -21,6 +21,7 @@ mkdir -p $JMETER_PATH/lib/ext/ && cp -f $JARS $JMETER_PATH/lib/ext/
 pwd
 cd $JMETER_TEST_PATH
 pwd
+ls
 bzt -o modules.jmeter.path=$JMETER_PATH -o modules.jmeter.version=$JMETER_VERSION testJMeter.yaml || ERROR=$?
 pwd
 cd $JMETER_PATH/lib/ext/
