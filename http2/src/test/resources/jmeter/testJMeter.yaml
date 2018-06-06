@@ -1,7 +1,10 @@
-services:
-- module: shellexec
-  startup:
-  - sh ./mod-script.sh
+#services:
+#- module: shellexec
+#  startup:
+#  - sh ./mod-script.sh
+settings:
+  env:
+    JVM_ARGS: -Xbootclasspath/p:$JMETER_TEST_PATH/lib/alpn-boot.jar
 
 modules:
   jmeter:
