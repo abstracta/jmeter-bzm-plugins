@@ -2,7 +2,7 @@
 set -e
 
 export JMETER_VERSION=$1
-export JMETER_PATH=${project.basedir}/.jmeter/$JMETER_VERSION
+#export JMETER_PATH=${project.basedir}/.jmeter/$JMETER_VERSION
 export JMETER_TEST_PATH=${project.basedir}/target/jmeter-test
 export APLN_JAR=$(ls $JMETER_TEST_PATH/lib/ | grep alpn-boot)
 export JVM_ARGS="-Xbootclasspath/p:$JMETER_TEST_PATH/lib/alpn-boot.jar"

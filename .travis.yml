@@ -5,10 +5,11 @@ env:
   global:
     - MAVEN_OPTS=-Dmaven.repo.local=.m2/repository
     - MQTT_WEBSOCKET_VERSION=1.0.1
+    - JMETER_PATH=${project.basedir}/.jmeter
     
 cache:
   directories:
-  - ${project.basedir}/.jmeter
+  - $JMETER_PATH
   - .m2
 
 language: java
