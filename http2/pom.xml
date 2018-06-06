@@ -173,6 +173,9 @@
               <goal>copy-dependencies</goal>
             </goals>
             <configuration>
+              <includeArtifactIds>
+                http2-client,http2-common,http2-hpack,jetty-alpn-client,jetty-alpn-openjdk8-client,jetty-http,jetty-io,jetty-util
+              </includeArtifactIds>
               <outputDirectory>${project.build.directory}/jmeter-test/lib</outputDirectory>
               <stripVersion>true</stripVersion>
             </configuration>
