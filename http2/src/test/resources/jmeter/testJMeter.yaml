@@ -1,7 +1,6 @@
 services:
 - module: shellexec
   startup:
-  - cd $JMETER_TEST_PATH
   - sh ./mod-script.sh
 
 modules:
