@@ -7,7 +7,6 @@ env:
     - MQTT_WEBSOCKET_VERSION=1.0.1
     
 cache:
-  timeout: 600000
   directories:
   - .jmeter
   - .m2

@@ -9,7 +9,6 @@ export APLN_JAR=$(ls $JMETER_TEST_PATH/lib/ | grep alpn-boot)
 export JVM_ARGS="-Xbootclasspath/p:$JMETER_TEST_PATH/lib/alpn-boot.jar"
 JARS=$(ls $JMETER_TEST_PATH/lib/ | grep -v alpn-boot)
 
-echo $JMETER_PATH
 cd $JMETER_TEST_PATH/lib/
 mkdir -p $JMETER_PATH/lib/ext/ && cp -f $JARS $JMETER_PATH/lib/ext/
 cd $JMETER_TEST_PATH
