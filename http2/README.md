@@ -59,23 +59,16 @@ Send Parameters With the Request - All the fields are equivalent to HTTP/1.1 fie
 
 ### Limitations
 
-HTTP/2 is an asynchronous protocol, meaning we don’t have to wait for the response of the server to continue the communication. But the JMeter model executes synchronously. Therefore, if we want to add assertions or post processors to our HTTP/2 Requests, i. e. process the response, we need to select the checkbox Synchronized Request to indicate that JMeter needs to wait until receiving the response before sending more requests. Syncronized Request will come useful if we want to model a situation where we need to put actions on top of responses as assertions or regex extractors.
-On the other hand, not having synchronized requests enabled may be useful if we want to simulate the regular HTTP2 communication without waiting a response every time we send a request. Apart from that, it is possible to handle the responses of the asynchronic requests if we use a explicit synchronizer (using the request id)for each specific request, although is more complicated, each syncronizer blocks Jmeter execution until the response arrives or the request times out (each timeout defined for each request).
+HTTP/2 is an asynchronous protocol, meaning we don’t have to wait for the response of the server to continue the communication. But the JMeter model executes synchronously. Therefore, if we want to add assertions or post processors to our HTTP/2 Requests, i. e. process the response, we need to select the checkbox Synchronized Request to indicate that JMeter needs to wait until receiving the response before sending more requests. Synchronized Request will come useful if we want to model a situation where we need to put actions on top of responses as assertions or regex extractors.
+On the other hand, not having synchronized requests enabled may be useful if we want to simulate the regular HTTP2 communication without waiting for a response every time we send a request. Apart from that, it is possible to execute post processor and assertions over asynchronous requests but there is no guarantee that it works correctly because the context of the execution could be different than the expected. So the only guaranteed assertion is over the response data of the sampler executed.
 
 ![](syncRequest.png)
-
-### View Result Tree Http2
-
-The View Results Tree Listener isn’t fit for HTTP/2, which can send more than one request at the same time without waiting for a response. Using the regular listener means we won’t be able to see the responses of all asynchronous requests.
-To solve this problem, you can use the View Result Tree Http2. This specialized listener provides a way to visualize a request that has not received a response yet. These requests will be written in blue, as you can see in the image below. When the response is received, the writing will turn immediately to black, and you will be able to see the response message. 
-
-![](viewResultTree.png)
 
 ### Run HTTP2 Plugin on Blazemeter
 
 In order to run HTTP2 plugin on Blazemeter, we will need to add the java argument -Xbootclasspath/p:<path.to.jar> to the JVM that runs jmeter, this can be achieved using a taurus .yaml implemented as following: 
 
-services:
+```services:
 - module: shellexec
   startup:
   - chmod +x mod-script.sh && ./mod-script.sh 
@@ -90,6 +83,7 @@ execution:
   - mod-script.sh
 scenarios:....
 modules:...
+```
 
 With the shellexec module, we are allowing taurus to run a shellscript, which will have this command: 
 
