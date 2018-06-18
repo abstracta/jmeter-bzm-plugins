@@ -59,7 +59,8 @@ Send Parameters With the Request - All the fields are equivalent to HTTP/1.1 fie
 
 ### Limitations
 
-HTTP/2 is an asynchronous protocol, meaning we don’t have to wait for the response of the server to continue the communication. But the JMeter model executes synchronously. Therefore, if we want to add assertions or post processors to our HTTP/2 Requests, i. e. process the response, we need to select the checkbox Synchronized Request to indicate that JMeter needs to wait until receiving the response before sending more requests.
+HTTP/2 is an asynchronous protocol, meaning we don’t have to wait for the response of the server to continue the communication. But the JMeter model executes synchronously. Therefore, if we want to add assertions or post processors to our HTTP/2 Requests, i. e. process the response, we need to select the checkbox Synchronized Request to indicate that JMeter needs to wait until receiving the response before sending more requests. Syncronized Request will come useful if we want to model a situation where we need to put actions on top of responses as assertions or regex extractors.
+On the other hand, not having synchronized requests enabled may be useful if we want to simulate the regular HTTP2 communication without waiting a response every time we send a request. Apart from that, it is possible to handle the responses of the asynchronic requests if we use a explicit synchronizer (using the request id)for each specific request, although is more complicated, each syncronizer blocks Jmeter execution until the response arrives or the request times out (each timeout defined for each request).
 
 ![](syncRequest.png)
 
@@ -69,3 +70,30 @@ The View Results Tree Listener isn’t fit for HTTP/2, which can send more than 
 To solve this problem, you can use the View Result Tree Http2. This specialized listener provides a way to visualize a request that has not received a response yet. These requests will be written in blue, as you can see in the image below. When the response is received, the writing will turn immediately to black, and you will be able to see the response message. 
 
 ![](viewResultTree.png)
+
+### Run HTTP2 Plugin on Blazemeter
+
+In order to run HTTP2 plugin on Blazemeter, we will need to add the java argument -Xbootclasspath/p:<path.to.jar> to the JVM that runs jmeter, this can be achieved using a taurus .yaml implemented as following: 
+
+services:
+- module: shellexec
+  startup:
+  - chmod +x mod-script.sh && ./mod-script.sh 
+execution:
+- scenario: scenario_name    
+  concurrency: 5
+  iteration: 10
+  ramp-up: 1m
+
+  files:
+  - alpn-boot-8.1.12.v20180117.jar
+  - mod-script.sh
+scenarios:....
+modules:...
+
+With the shellexec module, we are allowing taurus to run a shellscript, which will have this command: 
+
+sed -i "s/^java /java -Xbootclasspath\/p:alpn-boot-8.1.12.v20180117.jar /" ~/.bzt/jmeter-taurus/3.3/bin/jmeter.sh
+
+This command will do exactly what we need to run Jmeter's JVM with the -Xbootclasspath/p argument, so now we are ready to run HTTP2 plugin on Blazemeter.
+
