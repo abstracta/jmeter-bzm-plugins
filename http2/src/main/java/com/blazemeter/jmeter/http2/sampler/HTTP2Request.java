@@ -1,5 +1,6 @@
 package com.blazemeter.jmeter.http2.sampler;
 
+import com.blazemeter.jmeter.http2.visualizers.ResultCollectorHttp2;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.net.MalformedURLException;
@@ -21,6 +22,8 @@ import org.apache.jmeter.protocol.http.util.HTTPFileArg;
 import org.apache.jmeter.protocol.http.util.HTTPFileArgs;
 import org.apache.jmeter.samplers.AbstractSampler;
 import org.apache.jmeter.samplers.Entry;
+import org.apache.jmeter.samplers.SampleEvent;
+import org.apache.jmeter.samplers.SampleListener;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.jmeter.testelement.TestElement;
 import org.apache.jmeter.testelement.ThreadListener;
@@ -29,7 +32,8 @@ import org.apache.jmeter.testelement.property.StringProperty;
 import org.apache.jmeter.testelement.property.TestElementProperty;
 import org.apache.jmeter.threads.JMeterContext;
 import org.apache.jmeter.threads.JMeterContextService;
-import org.apache.jmeter.threads.JMeterVariables;
+import org.apache.jmeter.threads.JMeterThread;
+import org.apache.jmeter.threads.SamplePackage;
 import org.apache.jorphan.logging.LoggingManager;
 import org.apache.log.Logger;
 import org.eclipse.jetty.http.HttpFields;
@@ -139,13 +143,23 @@ public class HTTP2Request extends AbstractSampler implements ThreadListener, Loo
     } catch (Exception e) {
       errorResult(e, sampleResult);
     }
-    /*How HTTP2 protocol is async then when the Sampler finish there is a possibility that the
+    /*As HTTP2 protocol is async then when the Sampler finish there is a possibility that the
      response did not come yet, so this method returns null because when the response finish a
      notifier method is called from HTTP2SampleResult.*/
-    if (!isSyncRequest())
+    if (!isSyncRequest()) {
+      SamplePackage pack = (SamplePackage) threadContext.getVariables()
+          .getObject(JMeterThread.PACKAGE_OBJECT);
+      for (SampleListener l : pack.getSampleListeners()) {
+        if (l instanceof ResultCollectorHttp2) {
+          SampleEvent event = new SampleEvent(sampleResult, getThreadName(),
+              threadContext.getVariables(), false);
+          ((ResultCollectorHttp2) l).sampleOccurred(event);
+        }
+      }
       return null;
-    else
+    } else {
       return sampleResult;
+    }
   }
 
   /**
