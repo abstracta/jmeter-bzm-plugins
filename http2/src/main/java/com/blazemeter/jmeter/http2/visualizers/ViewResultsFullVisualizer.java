@@ -56,6 +56,10 @@ import org.apache.jmeter.visualizers.gui.AbstractVisualizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Implements a View Result Tree which shows the samplers with pending response different than the
+ * samplers already responded
+ */
 public class ViewResultsFullVisualizer extends AbstractVisualizer
     implements ActionListener, TreeSelectionListener, Clearable, ItemListener {
 
@@ -107,7 +111,6 @@ public class ViewResultsFullVisualizer extends AbstractVisualizer
   }
 
   public ViewResultsFullVisualizer() {
-    super();
     collector = new ResultCollectorHttp2();
     buffer = new LinkedHashSet();
     init();
