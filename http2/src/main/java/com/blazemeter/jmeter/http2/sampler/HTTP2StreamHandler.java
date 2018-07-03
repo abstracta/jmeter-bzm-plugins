@@ -171,9 +171,6 @@ public class HTTP2StreamHandler extends Stream.Listener.Adapter {
     result.setResponseHeaders(responseHeaders);
     result.setHeadersSize(rawHeaders.length());
     result.setHttpFieldsResponse(frame.getMetaData().getFields());
-    if (frame.isEndStream()) {
-      completeStream();
-    }
   }
 
   @Override
