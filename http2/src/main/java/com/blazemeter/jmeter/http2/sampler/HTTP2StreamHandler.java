@@ -132,6 +132,7 @@ public class HTTP2StreamHandler extends Stream.Listener.Adapter {
     String headers = rawHeaders.replaceAll("\r\n", "\n");
     sampleSubResult.setRequestHeaders(headers);
     sampleSubResult.sampleStart();
+    sampleSubResult.setSync(result.isSync());
     result.addSubResult(sampleSubResult);
     HTTP2StreamHandler hTTP2StreamHandler = new HTTP2StreamHandler(this.parent, headerManager,
         cookieManager, sampleSubResult);
@@ -346,6 +347,7 @@ public class HTTP2StreamHandler extends Stream.Listener.Adapter {
 
         HTTP2SampleResult subResult = result.createSubResult();
         subResult.setSampleLabel(url.toString());
+        subResult.setSync(res.isSync());
         res.addSubResult(subResult);
 
         parent.send("GET", url, headerManager, cookieManager, null, subResult, this.timeout);
